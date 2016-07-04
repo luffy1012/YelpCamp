@@ -1,0 +1,19 @@
+<% include partials/header %>
+<div class="container" style="margin: 0 auto; paddding-top: 3%;">
+  <h1> LogIn to our site </h1>
+  <hr>
+  <div style="max-width: 400px; margin: 5% auto;">
+    <form class="form-horizontal" action="/login" method="POST">
+      <div class="form" style="margin: 4% 0 ;">
+        <label for="username">Username</label>
+        <input id="username" class="form-control" type="text" name="username" placeholder="Username">
+      </div>
+      <div class="form" style="margin: 4% 0 ;">
+        <label for="password">Password</label>
+        <input id="password" class="form-control" type="password" name="password" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg" >LogIn</button>
+    </form>
+  </div>
+</div>
+<% include partials/footer %>

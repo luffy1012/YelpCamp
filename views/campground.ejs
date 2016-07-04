@@ -1,0 +1,76 @@
+<% include partials/header %>
+<div class="container" id = "campground_page">
+	<div class="row">
+		<div class="col-md-3">
+			<p class="lead">Yelp Camp</p>
+			<div class="list-group">
+				<div class="list-group-item active">Info 1</div>
+				<div class="list-group-item">Info 2</div>
+				<div class="list-group-item">Info 3</div>
+			</div>
+			<% if(currentUser && currentUser._id.toString() === camp.author.id.toString()) {%>
+				<div id="action-btn">
+					<form action="/campgrounds/<%= camp._id %>/edit/" method="get">
+						<button type="submit" class="edit btn btn-lg bg-info text-info"><i class = "glyphicon glyphicon-pencil"></i>edit</button>
+					</form>
+					<form action="/campgrounds/<%= camp._id %>?_method=delete" method="post">
+						<button type="submit" class="delete btn btn-lg bg-danger text-danger"><i class="glyphicon glyphicon-trash"></i>Delete</button>
+					</form>
+				</div>
+			<% } %>
+		</div>
+		<div class="col-md-9">
+			<div class="thumbnail">
+				<img src="<%= camp.src %>" class="img-responsive">
+				<div class="caption-full">
+					<h3 class="pull-right">$15.00/night</h3>
+					<h3 class="pull-left"><a><%= camp.name %></a></h3>
+				</div>
+				<div class="description">
+					<%- camp.desc %>
+					<p class="pull-right"><em>Submitted by - <%= camp.author.username %> </em></p>
+				</div>
+			</div>
+			<div class="well" id="commentBox">
+				<div class="clearfix" id="comment-box">
+					<% if(currentUser) { %>
+					<form method="POST" action="/campgrounds/<%=camp._id %>/comments/">
+						<div id="review-form">
+							<div class="form-group">
+								<textarea name="comment[text]" class="form-control" placeholder="Write a review" rows="3"></textarea>
+							</div>
+						</div>
+						<div id="submit-btn">
+							<button class="btn btn-primary" type="submit">Leave Review</button>
+						</div>
+					</form>
+					<% }else {%>
+					<a class="btn btn-primary" href="/login/">Sign In to Comment</a>
+					<% } %>
+				</div>
+				<% camp.comments.forEach(function(comment){ %>
+					<div class="comment">
+						<div class="heading">
+							<strong><%= comment.author.username %></strong>
+							<div class="date">
+								<%= comment.time.toLocaleTimeString()%>, <%=comment.time.toLocaleDateString() %></h6>
+							</div>
+						</div>
+						<div class="text">
+							<p><%= comment.text %></p>
+						</div>
+						<% if(currentUser && comment.author.id.toString() === currentUser.id.toString()) { %>
+							<button class="btn btn-default btn-xs btn-warning comment-btn comment-edit-btn" href="/campgrounds/<%= camp._id %>/comments/<%= comment._id %>?_method=PUT">Edit</button>
+							<form method="POST" class="delete-form comment-btn" action="/campgrounds/<%= camp._id%>/comments/<%=comment._id%>?_method=DELETE">
+								<button type="submit" class="btn btn-default btn-danger btn-xs">Delete</button>
+							</form>
+						<% } %>
+					</div>
+				<% }); %>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="/js/comment.js"></script>
+<% include partials/footer %>

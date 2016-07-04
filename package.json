@@ -1,0 +1,24 @@
+{
+  "name": "first",
+  "version": "1.0.0",
+  "description": "First node express project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "body-parser": "^1.15.2",
+    "ejs": "^2.4.2",
+    "mongoose": "^4.5.1",
+    "method-override": "^2.3.6",
+    "express-sanitizer": "^1.0.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
+    "express-session": "^1.14.0",
+    "connect-flash": "^0.1.1",
+  }
+}
