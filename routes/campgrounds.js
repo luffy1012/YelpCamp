@@ -83,7 +83,7 @@ router.get("/:id",function(req,res){
 /**
  * Edit info of a campground
  */
-router.put("/:id",isLoggedIn,isCreator,function(req,res) {
+router.put("/:id",isLoggedIn,function(req,res) {
 	Camp.findOne({ _id: req.params.id }, function (err, camp){
 		if(err){
 			req.flash("error","Error while fetching the campground. Please try again.");
@@ -173,5 +173,5 @@ function isLoggedIn(req,res,next){
 module.exports = router;
 
 function isCreator(req,camp) {
-		return req.user._id.toString() === camp.author.id.toString();
+	return req.user._id.toString() === camp.author.id.toString();
 }

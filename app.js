@@ -5,12 +5,12 @@ var express = require("express"),
     mongoose = require("mongoose"),
     Camp = require("./models/camp"),
     Comment = require("./models/comments"),
-    seed = require("./models/seeds"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
     passportLocalMongoose = require("passport-local-mongoose"),
-    User = require("./models/user");
-    flash = require("connect-flash");
+    User = require("./models/user"),
+    flash = require("connect-flash"),
+    seedDB = require("./seed");
 
 var indexRoutes = require("./routes/index"),
     campgroundRoutes = require("./routes/campgrounds"),
@@ -18,7 +18,7 @@ var indexRoutes = require("./routes/index"),
 
 var app = express();
 
-mongoose.connect("mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/yelpcamp",{user: "admin", pass: "JqUe5x7r2ys3"});
+mongoose.connect("mongodb://localhost/yelpcamp");
 
 app.use(flash());
 app.use(require("express-session")({
@@ -56,19 +56,10 @@ app.use("/",indexRoutes);
 app.use("/campgrounds",campgroundRoutes);
 app.use("/campgrounds/:id/comments",commentRoutes);
 
+seedDB();
 /**
  * Start the server
  */
-
-// User.findOne({"username":"God"},function(err,user){
-//   Camp.find({},function(err,camps){
-//     camps.forEach(function (camp) {
-//       camp.author.id = user._id;
-//       camp.author.username = user.username;
-//       camp.save();
-//     });
-//   });
-// });
 
 app.listen(process.env.PORT,process.env.IP,function(){
   console.log("Application started successfully on "+process.env.IP+":"+process.env.PORT);
