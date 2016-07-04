@@ -18,7 +18,7 @@ var indexRoutes = require("./routes/index"),
 
 var app = express();
 
-mongoose.connect("mongodb://admin:JqUe5x7r2ys3@$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/yelpcamp");
+mongoose.connect("mongodb://suyash1212:holidays@ds053320.mlab.com:53320/campawesome");
 
 app.use(flash());
 app.use(require("express-session")({
