@@ -62,5 +62,5 @@ seedDB();
  */
 
 app.listen(process.env.OPENSHIFT_NODEJS_PORT,process.env.OPENSHIFT_NODEJS_IP,function(){
-  console.log("Application started successfully on "+process.env.IP+":"+process.env.PORT);
+  console.log("Application started successfully on "+process.env.OPENSHIFT_NODEJS_IP+":"+process.env.OPENSHIFT_NODEJS_PORT);
 });
