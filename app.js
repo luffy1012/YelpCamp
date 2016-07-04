@@ -18,7 +18,7 @@ var indexRoutes = require("./routes/index"),
 
 var app = express();
 
-mongoose.connect("mongodb://localhost/yelpcamp");
+mongoose.connect("mongodb://suyash1212:holidays@ds053320.mlab.com:53320/campawesome");
 
 app.use(flash());
 app.use(require("express-session")({
