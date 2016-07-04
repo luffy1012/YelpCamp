@@ -1,12 +1,13 @@
 {
-  "name": "first",
+  "name": "YelpCamp",
   "version": "1.0.0",
-  "description": "First node express project",
+  "description": "Test website on MEAN stack",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
-  "author": "",
+  "author": "suyashahr",
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.0",
