@@ -18,7 +18,21 @@ var indexRoutes = require("./routes/index"),
 
 var app = express();
 
-mongoose.connect(process.env.DATABASEURL || "mongodb://localhost/yelpcamp");
+// default to a 'localhost' configuration:
+var connection_string = 'mongodb://localhost/yelpcamp';
+// if OPENSHIFT env variables are present, use the available connection info:
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+  connection_string = "mongodb://"+process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+  process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+  process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+  process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+  process.env.OPENSHIFT_APP_NAME;
+}
+if(process.env.DATABASEURL){
+  connection_string = process.env.DATABASEURL;
+}
+
+mongoose.connect(connection_string);
 
 app.use(flash());
 app.use(require("express-session")({
@@ -56,11 +70,13 @@ app.use("/",indexRoutes);
 app.use("/campgrounds",campgroundRoutes);
 app.use("/campgrounds/:id/comments",commentRoutes);
 
-seedDB();
+//seedDB();
 /**
  * Start the server
  */
+ var ip_addr = process.env.OPENSHIFT_NODEJS_IP   || process.env.IP || '127.0.0.1';
+ var port    = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || '8080';
 
-app.listen(process.env.PORT,process.env.IP,function(){
-  console.log("Application started successfully on "+process.env.IP+":"+process.env.PORT);
+app.listen(port,ip_addr,function(){
+  console.log("Application started successfully on "+ip_addr+":"+port);
 });
