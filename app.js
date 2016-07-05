@@ -70,7 +70,7 @@ app.use("/",indexRoutes);
 app.use("/campgrounds",campgroundRoutes);
 app.use("/campgrounds/:id/comments",commentRoutes);
 
-seedDB();
+//seedDB();
 /**
  * Start the server
  */
